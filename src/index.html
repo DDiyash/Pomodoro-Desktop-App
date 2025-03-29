@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Pomodoro App</title>
+    <link rel="stylesheet" href="index.css" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com;">
+    
+
+  </head>
+  <body>
+    <div class="title-bar">
+      <span class="app-title">Pomodoro App</span>
+      <div class="window-controls">
+        <button class="minimize"></button>
+        <button class="close"></button>
+      </div>
+    </div>
+    <div class="container">
+      <div class="c1">
+        <p>Let's time your task ! </p>
+        <p class="note">Note: Click 'End' to return to the main page. On the main page, use the close icon to exit.</p>
+        <button class="start" id="start">Start</button>
+       </div>  
+    </div>
+    
+    
+    
+    <script>
+      
+      document.getElementById('start').addEventListener('click', () => {
+        window.electron.send('open-set-timer');
+      });
+
+      document.querySelector(".minimize").addEventListener("click", () => {
+      window.electron.send("minimize-window");
+      });
+
+      document.querySelector(".close").addEventListener("click", () => {
+      window.electron.send("close-window");
+      });
+
+    </script>
+    
+  </body>
+</html>

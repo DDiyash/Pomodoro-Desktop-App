@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Pomodoro App</title>
+    <link rel="stylesheet" href="timer_end.css" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com;">
+    
+
+  </head>
+  <body>
+    <div class="title-bar">
+      <span class="app-title">Pomodoro App</span>
+      <!--<div class="window-controls">
+        <button class="minimize"></button>
+        <button class="close"></button>
+      </div>-->
+    </div>
+    <div class="container">
+      <div class="c1">
+        <div class="cc1">
+          <div class="image-sequence">
+            <img src="assets/happy_tomato.png" alt="Happy Tomato">
+          </div>
+          <p>Wanna reset the timer ? </p>
+          <div class="button-group">
+            <button class="reset" id="reset" >Reset</button>
+            <button class="stop" id="stop" >End</button>
+          </div>
+        </div>
+        
+      </div>  
+    </div>
+
+    
+
+    <script>
+      const stopButton = document.getElementById("stop");
+      const resetButton = document.getElementById("reset");
+
+      stopButton.addEventListener('click',function (){
+        window.location.href="index.html";
+      })
+      resetButton.addEventListener('click',function (){
+        window.location.href="set_timer.html";
+      })
+      //document.querySelector(".minimize").addEventListener("click", () => {
+      //window.electron.send("minimize-window");
+      //});
+
+      //document.querySelector(".close").addEventListener("click", () => {
+      //window.electron.send("close-window");
+      //});
+    </script>
+  
+    
+   
+    
+  </body>
+</html>

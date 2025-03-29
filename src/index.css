@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap');
+
+
+
+body{
+  background-color: #FFEF99;
+}
+.app-title{
+  font-family: "Pixelify Sans", sans-serif;
+  color: #FF5A36;
+  font-weight: bold;
+  font-size: 40px;
+}
+.title-bar {
+  display: flex;
+  justify-content: space-between; /* Title on the left, controls on the right */
+  align-items: center; /* Center vertically */
+  padding: 5px 10px;
+
+}
+
+.window-controls {
+  display: flex;
+  gap: 10px; /* Space between buttons */
+}
+
+.window-controls button {
+  width: 25px;
+  height: 25px;
+  border: none;
+  cursor: pointer;
+}
+
+/*Replace buttons with images*/
+.minimize {
+  background: url('./assets/minimize.png') no-repeat center;
+  background-size: contain;
+ 
+ 
+}
+
+.close {
+  background: url('./assets/close.png') no-repeat center;
+  background-size: contain;
+ 
+
+}
+
+.note{
+  font-size: 15px;
+}
+
+.container {
+  position: relative;
+  border: 3px solid #FF5A36;
+  border-radius: 10px;
+  margin: 20px 25px;
+  padding: 5px 25px;
+  height: 370px;
+  font-family: "Pixelify Sans", sans-serif;
+  color: #e5512f;
+  font-weight: bold;
+  font-size: 29px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  overflow: hidden; /* Ensure pseudo-element stays within bounds */
+}
+
+/* Background Image with Reduced Opacity */
+.container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('./assets/background.png') no-repeat center;
+  background-size: cover; /* Adjust as needed */
+  opacity: 0.7; /* Adjust this value for desired transparency */
+  z-index: -1; /* Places it behind the text */
+}
+
+
+.start{
+  border:  3px solid #FF5A36;
+  color: #FF5A36;
+  background-color: #FFD700;
+  font-family: "Pixelify Sans", sans-serif;
+  
+  font-weight: bold;
+  font-size: 25px;
+}
+
+
+

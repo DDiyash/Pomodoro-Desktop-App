@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Pomodoro App</title>
+    <link rel="stylesheet" href="timer_start.css" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com;">
+   
+  </head>
+  <body>
+    <div class="title-bar">
+      <span class="app-title">Pomodoro App</span>
+      <!--<div class="window-controls">
+        <button class="minimize"></button>
+        <button class="close"></button>
+      </div>-->
+    </div>
+    <div class="container">
+      <div class="c1">
+        <p> Your time will end in..</p>
+        <div class="cc1">
+            
+            <div class="image-sequence" id="image-sequence">
+              <img src="assets/happy_tomato.png" alt="Happy tomato">
+              <img src="assets/wait_tomato1.png" alt="Waiting tomato">
+              <img src="assets/wait_tomato2.png" alt="Waiting tomato">
+              <img src="assets/shocked_tomato.png" alt="Shocked tomato">
+              <img src="assets/abt_to_blast.png" alt="Pre-blast tomato">
+              <img src="assets/blasted_tomato.png" alt="Blast tomato" >
+            </div>
+            <p id="countdown">00:00:00</p>
+            <div class="button-group">
+              <button class="pause-play" id="pause-play">Pause</button>
+              <button class="stop" id="stop">End</button> <!--Coudnt change stop to end everywhere so just made the display text as end-->
+            </div>
+          
+        </div> 
+      </div>
+    </div>
+    
+    
+
+    <script>
+        // Function to get URL parameters
+        function getQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                h: parseInt(params.get("h") || "0"),
+                m: parseInt(params.get("m") || "0"),
+                s: parseInt(params.get("s") || "0"),
+            };
+        }
+    
+        // Get timer values from URL
+        let { h, m, s } = getQueryParams();
+        let totalSeconds = h * 3600 + m * 60 + s;
+
+        let isPaused = false; 
+        let timer;
+
+        const countdownElement = document.getElementById("countdown");
+        const pauseButton = document.getElementById("pause-play");
+        const stopButton = document.getElementById("stop");
+
+        // Image sequence animation
+        const images = document.querySelectorAll("#image-sequence img");
+        const imageCount = images.length;
+        let currentImageIndex = 0;
+
+        // Hide all images initially
+        images.forEach(img => img.style.display = "none");
+        if (images.length > 0) images[0].style.display = "block"; // Show first image
+
+        let imageTimer;
+
+        // Calculate interval for image changes
+        const imageInterval = totalSeconds / imageCount;
+
+        function updateImageSequence() {
+            if (currentImageIndex < images.length - 1) {
+                images[currentImageIndex].style.display = "none"; // Hide current image
+                currentImageIndex++;
+                images[currentImageIndex].style.display = "block"; // Show next image
+                imageTimer = setTimeout(updateImageSequence, imageInterval * 1000);
+            }
+        }
+
+    
+        function updateTimer() {
+            if (totalSeconds > 0) {
+                let hours = Math.floor(totalSeconds / 3600);
+                let minutes = Math.floor((totalSeconds % 3600) / 60);
+                let seconds = totalSeconds % 60;
+                
+                document.getElementById("countdown").innerText =
+                    `${hours.toString().padStart(2, '0')}:` +
+                    `${minutes.toString().padStart(2, '0')}:` +
+                    `${seconds.toString().padStart(2, '0')}`;
+    
+                totalSeconds--; // Decrement time
+                timer = setTimeout(updateTimer, 1000); // Call function every second
+            } else {
+                document.getElementById("countdown").innerText = "Time's Up!";
+                setTimeout(() => { //--------------------------------------------------------------------->new
+                  window.location.href = "timer_end.html"; // Redirect after 10 seconds
+                },0); // 10 seconds delay (10000ms)
+            }
+        }
+    
+        // Start countdown
+        updateTimer();
+        imageTimer = setTimeout(updateImageSequence, imageInterval * 1000);
+
+        pauseButton.addEventListener("click", function () {
+            if (isPaused) {
+                isPaused = false;
+                pauseButton.textContent = "Pause"; 
+                updateTimer(); 
+                updateImageSequence();
+            } else {
+                isPaused = true;
+                pauseButton.textContent = "Play"; 
+                clearTimeout(timer); 
+                clearTimeout(imageTimer); 
+            }
+        });
+
+        // Stop Button Logic
+        stopButton.addEventListener("click", function () {
+            clearTimeout(timer);
+            clearTimeout(imageTimer);
+            window.location.href = "index.html"; // Change to your setup page
+        });
+
+
+        //document.querySelector(".minimize").addEventListener("click", () => {
+        //window.electron.send("minimize-window");
+        //});
+
+        //document.querySelector(".close").addEventListener("click", () => {
+        //window.electron.send("close-window");
+        //});
+
+    </script>
+    
+    
+  </body>
+</html>
